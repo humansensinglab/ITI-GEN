@@ -28,7 +28,6 @@ Key features of our method are:
 
 ## Installation
 The code has been tested with the following environment:
-
 ```angular2html
 git clone https://github.com/humansensinglab/ITI-GEN.git
 cd ITI-GEN
@@ -37,7 +36,6 @@ source activate iti-gen
 ```
 
 ## Data Preparation
-
 1. We provide _processed_ reference images as follows:
 
 |   Dataset    |      Description      |       Attribute Used        |                                        Google Drive                                        |
@@ -91,7 +89,7 @@ python train_iti_gen.py \
 ```
   - `--prompt`: prompt that you want to debias.
   - `--attribute_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
-  - Checkpoints are saved every `save-ckpt-per-epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
+  - Checkpoints are saved every `save_ckpt_per_epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
 
 
 
@@ -100,12 +98,12 @@ python train_iti_gen.py \
 python prepend.py \
     --prompt='a headshot of a person' \
     --attribute-list='Male,Skin_tone,Age' \
-    --load-model-epoch=4 \
+    --load-model-epoch=9 \
     --prepended-prompt='a headshot of a person'
 ```
-  - `prompt` and `attribute_list` should be align with those used in training ITI-GEN.
-  - `load_model_epoch` indicates the model's epoch you want to load.
-  - `--prepended-prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
+  - `--prompt` and `--attribute_list` should be align with those used in training ITI-GEN.
+  - `--load_model_epoch` indicates the model's epoch you want to load.
+  - `--prepended_prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
 
 
 
