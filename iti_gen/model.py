@@ -76,8 +76,7 @@ class ITI_GEN(object):
             refer_img_path_list = []
             for category in self.categories_list[idx]:
                 refer_img_path_list.append(os.path.join(attribute_root_folder, category))
-            # print(refer_img_path_list)
-            # print(len(ImgDataset(root_dir=refer_img_path_list, label=label_type, upper_bound=self.args.refer_size_per_category)))
+
             self.train_dataset_list.append(ImgDataset(root_dir=refer_img_path_list, label=label_type, upper_bound=self.args.refer_size_per_category))
 
     def _init_dataloader(self):
@@ -96,7 +95,7 @@ class ITI_GEN(object):
                 batch_size=batch_size,
                 num_workers=1,
                 shuffle=True,
-                # we should drop the last one
+                # drop the last one
                 drop_last=True,
                 pin_memory=True,
             ))
@@ -324,13 +323,13 @@ class ITI_GEN(object):
         loss_con = temp_loss_con.sum() / divide_num
         return loss_direction, loss_con
 
-    def prompt_prepend(self):
+    def prompt_prepend(self, prepended_prompt):
         """
         prepend the learnt FairToken after args.prompt_gen
         for Train-once-for-all generation
         Returns:
         """
-        self.tokenized_text_queries_gen, self.last_word_index_gen = self.prompt_tokenization(self.args.prompt_gen)
+        self.tokenized_text_queries_gen, self.last_word_index_gen = self.prompt_tokenization(prepended_prompt)
 
         xp = self.clip_model.token_embedding(self.tokenized_text_queries_gen).type(self.clip_model.dtype)  # (108, 77, 768)
         self.text_queries_embedding_gen = xp + self.clip_model.positional_embedding.type(self.clip_model.dtype)
@@ -343,7 +342,6 @@ class ITI_GEN(object):
         save the latest FairTokens & prompt embeddings & prepended prompt embeddings
         Returns:
         """
-
         # Save each FairToken
         for i, fairtoken_model in enumerate(self.fairtoken_model_list):
             torch.save(fairtoken_model.state_dict(), os.path.join(folder_path, 'basis_perturbation_embed_' + str(ep) + '_' + self.attribute_list[i] + '.pth'))
@@ -354,13 +352,6 @@ class ITI_GEN(object):
                                                                  self.last_word_index)  # (108, 77, 768)
         basis_np = latest_prompt_embeddings.clone().detach().cpu()
         path = os.path.join(folder_path, 'original_prompt_embedding')
-        os.makedirs(path, exist_ok=True)
-        torch.save(basis_np, os.path.join(path, 'basis_final_embed_' + str(ep) + '.pt'))  # (108, 77, 768)
-
-        # Save prepended prompt embeddings
-        latest_prepend_prompt_embeddings = self.prompt_prepend()
-        basis_np = latest_prepend_prompt_embeddings.clone().detach().cpu()
-        path = os.path.join(folder_path, 'prepended_prompt_embedding')
         os.makedirs(path, exist_ok=True)
         torch.save(basis_np, os.path.join(path, 'basis_final_embed_' + str(ep) + '.pt'))  # (108, 77, 768)
         print("Successfully save Models!")
@@ -435,7 +426,7 @@ class ITI_GEN(object):
         for scheduler in self.scheduler_list:
             scheduler.step()
 
-        # after one epoch, start inference and save corresponding model
+        # save model
         with torch.no_grad():
             if (ep + 1) in epoch_saving_list:
                 self.save_model(ep, folder_path)

@@ -81,20 +81,32 @@ Save the `.zip` files and unzip the downloaded reference images under ```data/``
 Modify the corresponding functions in `util.py`.
 
 
-
-## Training ITI-GEN and Prompt Prepending
+## Training ITI-GEN
 ```shell
 python train_iti_gen.py \
-    --attribute-list='Male,Skin_tone,Age' \
     --prompt='a headshot of a person' \
-    --prompt-gen='a headshot of a person' \
+    --attribute-list='Male,Skin_tone,Age' \
     --epochs=30 \
     --save-ckpt-per-epochs=10
 ```
-  - `--attribute_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - `--prompt`: prompt that you want to debias.
-  - `--prompt_gen`: prepend the learnt tokens after this prompt to implement Train-once-for-all generation. `prompt` and `prompt_gen` should not differ a lot, better to solely change the occupation.
+  - `--attribute_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - Checkpoints are saved every `save-ckpt-per-epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
+
+
+
+## (Optional) Prompt Prepending
+```shell
+python prepend.py \
+    --prompt='a headshot of a person' \
+    --attribute-list='Male,Skin_tone,Age' \
+    --load-model-epoch=4 \
+    --prepended-prompt='a headshot of a person'
+```
+  - `prompt` and `attribute_list` should be align with those used in training ITI-GEN.
+  - `load_model_epoch` indicates the model's epoch you want to load.
+  - `--prepended-prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
+
 
 
 ## Generation
@@ -123,8 +135,8 @@ python generation.py \
     --ckpt='models/sd/models/ldm/stable-diffusion-v1/model.ckpt' \
     --plms \
     --attribute-list='Male,Skin_tone,Age' \
-    --outdir='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/prepended_prompt_embedding/sample_results' \
-    --prompt-path='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/prepended_prompt_embedding/basis_final_embed_9.pt' \
+    --outdir='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/sample_results' \
+    --prompt-path='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/basis_final_embed_9.pt' \
     --n_iter=5 \
     --n_rows=5 \
     --n_samples=1
