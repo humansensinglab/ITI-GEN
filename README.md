@@ -83,12 +83,12 @@ Modify the corresponding functions in `util.py`.
 ```shell
 python train_iti_gen.py \
     --prompt='a headshot of a person' \
-    --attribute-list='Male,Skin_tone,Age' \
+    --attr-list='Male,Skin_tone,Age' \
     --epochs=30 \
     --save-ckpt-per-epochs=10
 ```
   - `--prompt`: prompt that you want to debias.
-  - `--attribute_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
+  - `--attr_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - Checkpoints are saved every `save_ckpt_per_epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
 
 
@@ -97,11 +97,11 @@ python train_iti_gen.py \
 ```shell
 python prepend.py \
     --prompt='a headshot of a person' \
-    --attribute-list='Male,Skin_tone,Age' \
+    --attr-list='Male,Skin_tone,Age' \
     --load-model-epoch=9 \
     --prepended-prompt='a headshot of a person'
 ```
-  - `--prompt` and `--attribute_list` should be align with those used in training ITI-GEN.
+  - `--prompt` and `--attr_list` should be align with those used in training ITI-GEN.
   - `--load_model_epoch` indicates the model's epoch you want to load.
   - `--prepended_prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
 
@@ -132,7 +132,7 @@ python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
     --ckpt='models/sd/models/ldm/stable-diffusion-v1/model.ckpt' \
     --plms \
-    --attribute-list='Male,Skin_tone,Age' \
+    --attr-list='Male,Skin_tone,Age' \
     --outdir='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/sample_results' \
     --prompt-path='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/basis_final_embed_9.pt' \
     --n_iter=5 \
@@ -142,9 +142,9 @@ python generation.py \
 - `--config`: config file for Stable Diffusion.
 - `--ckpt`: path to the pre-trained Stable Diffusion checkpoint.
 - `--plms`: whether to use the plms sampling.
-- `--attribute_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. This should align with the attribute list used in training ITI-GEN.
+- `--attr_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. This should align with the attribute list used in training ITI-GEN.
 - `--outdir`: output directory of the generated images.
-- `--prompt-path`: path to the learnt prompt embeddings with ITI-GEN.
+- `--prompt_path`: path to the learnt prompt embeddings with ITI-GEN.
 - `--n_iter`: number of iterations for the diffusion sampling.
 - `--n_rows`: number of rows in the output image grid.
 - `--n_samples`: number of samples per row.

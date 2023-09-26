@@ -230,7 +230,7 @@ def main():
 
     # added parameters
     parser.add_argument(
-        '--attribute-list',
+        '--attr-list',
         type=str,
         default='Male,Skin_Tone,Age',
         help='input the attributes that you want to debias, separated by commas. Eg, Male,Eyeglasses,...'
@@ -285,7 +285,7 @@ def main():
     precision_scope = autocast if opt.precision == "autocast" else nullcontext
 
     # Get combination
-    folder_with_indexes = get_folder_names_and_indexes(opt.attribute_list.split(','))
+    folder_with_indexes = get_folder_names_and_indexes(opt.attr_list.split(','))
     for folder, index in folder_with_indexes.items():
 
         sample_path = os.path.join(opt.outdir, folder)

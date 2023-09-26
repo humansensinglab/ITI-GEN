@@ -34,14 +34,14 @@ class ImgDataset(Dataset):
         ])
 
     def prepare_data_list(self):
-        # set all images together, such as put positive and negative all into self.file_list
+        # set all images together
+        # all into self.file_list
         for i, dir in enumerate(self.root_dir):
             path = glob.glob(os.path.join(dir, '*.jpg'))
             path += glob.glob(os.path.join(dir, '*.png'))
 
-            # random select the images based on the min(upper, folder_size)
-            selected_index = np.random.choice(len(path), min(self.upper_bound,len(path)), replace=False)
-            for index in selected_index:
+            # random select the images based on the min(upper, size)
+            for index in np.random.choice(len(path), min(self.upper_bound,len(path)), replace=False):
                 self.file_list.append({'path': path[index], 'label': self.label[i]})
 
     def __len__(self):
