@@ -90,7 +90,7 @@ Modify the corresponding functions in `util.py`.
 
 
 ## Training ITI-GEN
-**1.Train on human domain**
+**1.Train on human domain (only several minutes)**
 ```shell
 python train_iti_gen.py \
     --prompt='a headshot of a person' \
@@ -102,7 +102,7 @@ python train_iti_gen.py \
   - `--attr_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - Checkpoints are saved every `save_ckpt_per_epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
 
-**2.Train on scene domain**
+**2.Train on scene domain (only several minutes)**
 ```shell
 python train_iti_gen.py \
     --prompt='a natural scene' \
@@ -158,7 +158,7 @@ cd ../..
 ```
 
 ### Image generation
-**1.Generate on human domain (only several minutes)**
+**1.Generate on human domain**
 ```shell
 python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
@@ -181,7 +181,7 @@ python generation.py \
 - `--n_rows`: number of rows in the output image grid.
 - `--n_samples`: number of samples per row.
 
-**2.Generate on scene domain (only several minutes)**
+**2.Generate on scene domain**
 ```shell
 python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
