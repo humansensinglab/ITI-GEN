@@ -158,7 +158,7 @@ cd ../..
 ```
 
 ### Image generation
-**1.Generate on human domain**
+**1.Generate on human domain (only several minutes)**
 ```shell
 python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
@@ -181,7 +181,7 @@ python generation.py \
 - `--n_rows`: number of rows in the output image grid.
 - `--n_samples`: number of samples per row.
 
-**2.Generate on scene domain**
+**2.Generate on scene domain (only several minutes)**
 ```shell
 python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
