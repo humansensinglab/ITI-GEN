@@ -14,10 +14,14 @@ Official implementation for the paper:
 
 [Paper](https://arxiv.org/pdf/2309.05569.pdf) | [arXiv](https://arxiv.org/abs/2309.05569) | [Webpage](https://czhang0528.github.io/iti-gen)
 
+
+
 ## Updates
 **[Sep 18 2023]** Code released. Generation using [Stable Diffusion](https://github.com/CompVis/stable-diffusion) is supported. Will support [ControlNet](https://github.com/lllyasviel/ControlNet), [InstructionPix2Pix](https://github.com/timothybrooks/instruct-pix2pix) later.
 
 **[Sep 11 2023]** Paper released to [Arxiv](https://arxiv.org/pdf/2309.05569.pdf).
+
+
 
 ## Overview
 This repo contains the code for training ITI-GEN and generating images that uniformly span across 
@@ -25,6 +29,8 @@ the categories of selected attributes. The main idea behind our approach is leve
 Key features of our method are:
 - Only need datasets that capture the marginal distribution of individual attributes, bypassing the need for datasets that represent joint distributions of multiple attributes.
 - The learned token embeddings are generalizable across different generative models.
+
+
 
 ## Installation
 The code has been tested with the following environment:
@@ -34,6 +40,8 @@ cd ITI-GEN
 conda env create --name iti-gen --file=environment.yml
 source activate iti-gen
 ```
+
+
 
 ## Data Preparation
 1. We provide _processed_ reference images as follows:
@@ -79,7 +87,10 @@ Save the `.zip` files and unzip the downloaded reference images under ```data/``
 Modify the corresponding functions in `util.py`.
 
 
+
+
 ## Training ITI-GEN
+**1.Train on human domain**
 ```shell
 python train_iti_gen.py \
     --prompt='a headshot of a person' \
@@ -91,9 +102,20 @@ python train_iti_gen.py \
   - `--attr_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - Checkpoints are saved every `save_ckpt_per_epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
 
+**2.Train on scene domain**
+```shell
+python train_iti_gen.py \
+    --prompt='a natural scene' \
+    --attr-list='Colorful' \
+    --epochs=30 \
+    --save-ckpt-per-epochs=10
+```
+
+
 
 
 ## (Optional) Prompt Prepending
+**1.Prepend on human domain**
 ```shell
 python prepend.py \
     --prompt='a headshot of a person' \
@@ -103,7 +125,16 @@ python prepend.py \
 ```
   - `--prompt` and `--attr_list` should be align with those used in training ITI-GEN.
   - `--load_model_epoch` indicates the model's epoch you want to load.
-  - `--prepended_prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
+  - `--prepended_prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. In human domain, `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
+
+**2.Prepend on scene domain**
+```shell
+python prepend.py \
+    --prompt='a natural scene' \
+    --attr-list='Colorful' \
+    --load-model-epoch=19 \
+    --prepended-prompt='an alien pyramid landscape, art station, landscape, concept art, illustration, highly detailed artwork cinematic'
+```
 
 
 
@@ -127,6 +158,7 @@ cd ../..
 ```
 
 ### Image generation
+**1.Generate on human domain**
 ```shell
 python generation.py \
     --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
@@ -148,6 +180,20 @@ python generation.py \
 - `--n_iter`: number of iterations for the diffusion sampling.
 - `--n_rows`: number of rows in the output image grid.
 - `--n_samples`: number of samples per row.
+
+**2.Generate on scene domain**
+```shell
+python generation.py \
+    --config='models/sd/configs/stable-diffusion/v1-inference.yaml' \
+    --ckpt='models/sd/models/ldm/stable-diffusion-v1/model.ckpt' \
+    --plms \
+    --attr-list='Colorful' \
+    --outdir='./ckpts/a_natural_scene_Colorful/prepend_prompt_embedding_an_alien_pyramid_landscape,_art_station,_landscape,_concept_art,_illustration,_highly_detailed_artwork_cinematic/sample_results' \
+    --prompt-path='./ckpts/a_natural_scene_Colorful/prepend_prompt_embedding_an_alien_pyramid_landscape,_art_station,_landscape,_concept_art,_illustration,_highly_detailed_artwork_cinematic/basis_final_embed_19.pt' \
+    --n_iter=5 \
+    --n_rows=5 \
+    --n_samples=1
+```
 
 We are actively adding more features to this repo. Please stay tuned!
 
