@@ -2,7 +2,7 @@
 
 Official implementation for the paper:
 
-**ITI-GEN: Inclusive Text-to-Image Generation [ICCV 2023 Oral]** 
+**ITI-GEN: Inclusive Text-to-Image Generation [ICCV 2023 Best Paper Candidate]** 
 
 [Cheng Zhang](https://czhang0528.github.io/), 
 [Xuanbai Chen](https://xuanbai-chen.github.io/), 
@@ -17,6 +17,8 @@ Official implementation for the paper:
 
 
 ## Updates
+**[Oct 04 2023]** Our paper entered the **Best Paper Candidate List** (17 of 2161, **Top 0.7%**) for ICCV 2023.
+
 **[Sep 18 2023]** Code released. Generation using [Stable Diffusion](https://github.com/CompVis/stable-diffusion) is supported. Will support [ControlNet](https://github.com/lllyasviel/ControlNet), [InstructionPix2Pix](https://github.com/timothybrooks/instruct-pix2pix) later.
 
 **[Sep 11 2023]** Paper released to [Arxiv](https://arxiv.org/pdf/2309.05569.pdf).
@@ -24,6 +26,10 @@ Official implementation for the paper:
 
 
 ## Overview
+<div align=center>
+    <img src="docs/teaser.png" align="middle", width=780>
+</div>
+
 This repo contains the code for training ITI-GEN and generating images that uniformly span across 
 the categories of selected attributes. The main idea behind our approach is leveraging reference images to better represent diverse attributes. 
 Key features of our method are:
