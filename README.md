@@ -125,8 +125,8 @@ python train_iti_gen.py \
 python prepend.py \
     --prompt='a headshot of a person' \
     --attr-list='Male,Skin_tone,Age' \
-    --load-model-epoch=9 \
-    --prepended-prompt='a headshot of a person'
+    --load-model-epoch=19 \
+    --prepended-prompt='a headshot of a doctor'
 ```
   - `--prompt` and `--attr_list` should be align with those used in training ITI-GEN.
   - `--load_model_epoch` indicates the model's epoch you want to load.
@@ -171,7 +171,7 @@ python generation.py \
     --plms \
     --attr-list='Male,Skin_tone,Age' \
     --outdir='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/sample_results' \
-    --prompt-path='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/basis_final_embed_9.pt' \
+    --prompt-path='./ckpts/a_headshot_of_a_person_Male_Skin_tone_Age/original_prompt_embedding/basis_final_embed_19.pt' \
     --n_iter=5 \
     --n_rows=5 \
     --n_samples=1
@@ -193,8 +193,8 @@ python generation.py \
     --ckpt='models/sd/models/ldm/stable-diffusion-v1/model.ckpt' \
     --plms \
     --attr-list='Colorful' \
-    --outdir='./ckpts/a_natural_scene_Colorful/prepend_prompt_embedding_an_alien_pyramid_landscape,_art_station,_landscape,_concept_art,_illustration,_highly_detailed_artwork_cinematic/sample_results' \
-    --prompt-path='./ckpts/a_natural_scene_Colorful/prepend_prompt_embedding_an_alien_pyramid_landscape,_art_station,_landscape,_concept_art,_illustration,_highly_detailed_artwork_cinematic/basis_final_embed_19.pt' \
+    --outdir='./ckpts/a_natural_scene_Colorful/original_prompt_embedding/sample_results' \
+    --prompt-path='./ckpts/a_natural_scene_Colorful/original_prompt_embedding/basis_final_embed_19.pt' \
     --n_iter=5 \
     --n_rows=5 \
     --n_samples=1
