@@ -181,7 +181,7 @@ cd ../..
 
 **1.Generate on human domain**
 
-<p class="content has-text-centered">
+<p align="center">
   <img src="docs/multi_category.png" style="margin-right: 10px;"  width="370px">
   <img src="docs/multi_category_man.png" width="370px">
 </p>
@@ -211,7 +211,7 @@ python generation.py \
 
 **2.Generate on scene domain**
 
-<p class="content has-text-centered">
+<p align="center">
   <img src="docs/scene_3.png" style="margin-right: 10px;"  width="370px">
   <img src="docs/scene_4.png" width="370px">
 </p>
