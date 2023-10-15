@@ -9,7 +9,7 @@
 ## Overview
 
 <p align="center">
-    <img src="docs/teaser.png"/>
+    <img src="docs/teaser.png" width="600px"/>
 </p>
 
 > **ITI-GEN: Inclusive Text-to-Image Generation**<br>
@@ -51,7 +51,7 @@ source activate iti-gen
 ## Data Preparation
 
 <p align="center">
-    <img src="docs/fig_sample.png"/>
+    <img src="docs/fig_sample.png" width="600px"/>
 </p>
 
 1. We provide _processed_ reference images as follows:
@@ -132,7 +132,7 @@ python train_iti_gen.py \
 ## (Optional) Prompt Prepending
 
 <p align="center">
-    <img src="docs/framework.png"/>
+    <img src="docs/fig_framework.png"/>
 </p>
 
 **1.Prepend on human domain**
@@ -182,8 +182,8 @@ cd ../..
 **1.Generate on human domain**
 
 <p class="content has-text-centered">
-  <img src="docs/multi_category.png" style="margin-right: 10px;"  width="350px">
-  <img src="docs/multi_category_man.png" width="350px">
+  <img src="docs/multi_category.png" style="margin-right: 10px;"  width="370px">
+  <img src="docs/multi_category_man.png" width="370px">
 </p>
 
 ```shell
@@ -212,8 +212,8 @@ python generation.py \
 **2.Generate on scene domain**
 
 <p class="content has-text-centered">
-  <img src="docs/scene_3.png" style="margin-right: 10px;"  width="345px">
-  <img src="docs/scene_4.png" width="341px">
+  <img src="docs/scene_3.png" style="margin-right: 10px;"  width="370px">
+  <img src="docs/scene_4.png" width="370px">
 </p>
 
 ```shell
