@@ -20,7 +20,7 @@
 [Dmitry Lagun](https://www.linkedin.com/in/dmitry-lagun-738b1221/), 
 [Thabo Beeler](https://thabobeeler.com/), 
 [Fernando De la Torre](https://www.cs.cmu.edu/~ftorre/) <br>
-> **ICCV 2023 Oral**
+> **ICCV 2023 Oral, Best Paper Finalist**
 
 This repo contains the code for training ITI-GEN and generating images that uniformly span across 
 the categories of selected attributes. The main idea behind our approach is leveraging reference images to better represent diverse attributes. 
@@ -105,7 +105,7 @@ Modify the corresponding functions in `util.py`.
     <img src="docs/loss.png" width="400px"/>
 </p>
 
-**1.Train on human domain (only several minutes)**
+**1. Train on human domain (only several minutes)**
 ```shell
 python train_iti_gen.py \
     --prompt='a headshot of a person' \
@@ -117,7 +117,7 @@ python train_iti_gen.py \
   - `--attr_list`: attributes should be selected from `Dataset_name_attribute_list` in `util.py`, separated by commas. Empirically, attributes that are easier to train (less # of category, easier to tell the visual difference between categories) should be put in the front, eg. Male < Young < ... < Skin_Tone < Age.
   - Checkpoints are saved every `save_ckpt_per_epochs`. However, it is NOT always the longer, the better. Better to check every ckpt.
 
-**2.Train on scene domain (only several minutes)**
+**2. Train on scene domain (only several minutes)**
 ```shell
 python train_iti_gen.py \
     --prompt='a natural scene' \
@@ -135,7 +135,7 @@ python train_iti_gen.py \
     <img src="docs/fig_framework.png"/>
 </p>
 
-**1.Prepend on human domain**
+**1. Prepend on human domain**
 ```shell
 python prepend.py \
     --prompt='a headshot of a person' \
@@ -147,7 +147,7 @@ python prepend.py \
   - `--load_model_epoch` indicates the model's epoch you want to load.
   - `--prepended_prompt`: prepend the learnt tokens after this prompt to implement Train-Once-For-All Generation. In human domain, `prompt` and `prepended_prompt` should not differ a lot, better to solely change the occupation.
 
-**2.Prepend on scene domain**
+**2. Prepend on scene domain**
 ```shell
 python prepend.py \
     --prompt='a natural scene' \
@@ -179,7 +179,7 @@ cd ../..
 
 ### Image generation
 
-**1.Generate on human domain**
+**1. Generation on the human domain**
 
 <p align="center">
   <img src="docs/multi_category.png" style="margin-right: 10px;"  width="370px">
@@ -209,7 +209,7 @@ python generation.py \
 - `--n_samples`: number of samples per row.
 
 
-**2.Generate on scene domain**
+**2. Generation on the scene domain**
 
 <p align="center">
   <img src="docs/scene_3.png" style="margin-right: 10px;"  width="370px">
