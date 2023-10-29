@@ -245,7 +245,7 @@ python evaluation.py \
     --class-list 'a headshot of a person wearing eyeglasses' 'a headshot of a person'
 ```
 - `--img_folder`: the image folder that you want to evaluate.
-- `--class_list`: the class prompts used for evaluation， separated by a space. The length of the list depends on the number of category combinations for different attributes. In terms of writing prompts, please refer (but not limited) to Table A3 in the supplementary materials.
+- `--class_list`: the class prompts used for evaluation，separated by a space. The length of the list depends on the number of category combinations for different attributes. In terms of writing prompts, please refer (but not limited) to Table A3 in the supplementary materials.
 
 
 ## Acknowledgements
