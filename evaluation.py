@@ -21,7 +21,8 @@ def parse_args():
 
     parser.add_argument('--img-folder', type=str, default='/path/to/image/folder/you/want/to/evaluate',
                         help='path to image folder that you want to evaluate.')
-    parser.add_argument('--class-list', nargs='+', help='type of classes that you want to evaluate', required=True, type=str)
+    parser.add_argument('--class-list', nargs='+',
+                        help='type of classes that you want to evaluate', required=True, type=str)
     parser.add_argument('--device', type=int, default=1, help='gpu number')
 
     return parser.parse_args()
