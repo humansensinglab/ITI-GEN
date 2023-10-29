@@ -32,6 +32,8 @@ Key features of our method are:
 
 ## Updates
 
+**[Oct 28 2023]** Evaluation code added [here](https://github.com/humansensinglab/ITI-GEN#evaluation).
+
 **[Sep 18 2023]** Code released. Generation using [Stable Diffusion](https://github.com/CompVis/stable-diffusion) is supported. Will support [ControlNet](https://github.com/lllyasviel/ControlNet), [InstructionPix2Pix](https://github.com/timothybrooks/instruct-pix2pix) later.
 
 **[Sep 11 2023]** Paper released to [Arxiv](https://arxiv.org/pdf/2309.05569.pdf).
@@ -230,6 +232,21 @@ python generation.py \
 ```
 
 We are actively adding more features to this repo. Please stay tuned!
+
+
+## Evaluation
+We show using CLIP, which is found superior to the pre-trained classifiers, for evaluating most of the attributes. 
+When it might be erroneous for some attributes, we combine the CLIP results with human evaluations. 
+Please refer to Section 4.1 Quantitative Metrics in the main paper and Section D in the supplementary materials for more details.
+
+```shell
+python evaluation.py \
+--img-folder '/path/to/image/folder/you/want/to/evaluate' \
+--class-list 'a headshot of a person wearing eyeglasses' 'a headshot of a person'
+```
+- `--img_folder`: the image folder that you want to evaluate.
+- `--class_list`: the class prompts used for evaluation. The length of the list depends on the number of category combinations for different attributes. In terms of writing prompts, please refer (but not limited) to Table A3 in the supplementary materials.
+
 
 ## Acknowledgements
 - Models
