@@ -32,11 +32,26 @@ Key features of our method are:
 
 ## Updates
 
-**[Oct 28 2023]** Evaluation code added [here](https://github.com/humansensinglab/ITI-GEN#evaluation).
+**[Oct 28 2023]** Evaluation code added [here](#evaluation).
 
 **[Sep 18 2023]** Code released. Generation using [Stable Diffusion](https://github.com/CompVis/stable-diffusion) is supported. Will support [ControlNet](https://github.com/lllyasviel/ControlNet), [InstructionPix2Pix](https://github.com/timothybrooks/instruct-pix2pix) later.
 
 **[Sep 11 2023]** Paper released to [Arxiv](https://arxiv.org/pdf/2309.05569.pdf).
+
+
+## Outline
+- [Installation](#installation)
+- [Data Preparation](#data-preparation)
+- [Training ITI-GEN](#training-iti-gen)
+- [Prompt Prepending](#optional-prompt-prepending)
+- [Generation](#generation)
+  - [Stable Diffusion installation](#stable-diffusion-installation)
+  - [Image generation](#image-generation)
+- [Evaluation](#evaluation)
+- [Acknowledgements](#acknowledgements)
+- [Citation](#citation)
+- [License](#license)
+
 
 
 
