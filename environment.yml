@@ -86,6 +86,7 @@ dependencies:
     - beautifulsoup4==4.12.2
     - blessed==1.20.0
     - cachetools==5.3.1
+    - clean-fid==0.1.35
     - click==8.1.7
     - croniter==1.4.1
     - dateutils==0.6.12

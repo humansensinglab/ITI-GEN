@@ -251,8 +251,8 @@ We are actively adding more features to this repo. Please stay tuned!
 
 ## Evaluation
 We show using CLIP, which is found superior to the pre-trained classifiers, for evaluating most of the attributes. 
-When it might be erroneous for some attributes, we combine the CLIP results with human evaluations. 
-Please refer to Section 4.1 Quantitative Metrics in the main paper and Section D in the supplementary materials for more details.
+When it might be erroneous for some attributes, we combine the CLIP results with human evaluations.
+The output for this script contains the quantitative results of both `KL divergence` and `FID` score, supported by [CleanFID](https://github.com/GaParmar/clean-fid).
 
 ```shell
 python evaluation.py \
@@ -260,8 +260,12 @@ python evaluation.py \
     --class-list 'a headshot of a person wearing eyeglasses' 'a headshot of a person'
 ```
 - `--img_folder`: the image folder that you want to evaluate.
-- `--class_list`: the class prompts used for evaluation, separated by a space. The length of the list depends on the number of category combinations for different attributes. In terms of writing prompts, please refer (but not limited) to Table A3 in the supplementary materials.
+- `--class_list`: the class prompts used for evaluation, separated by a space. The length of the list depends on the number of category combinations for different attributes. In terms of writing evaluation prompts for CelebA attributes, please refer (but not limited) to Table A3 in the supplementary materials.
 
+We should notice FID score can be affected by various factors such as the image number. 
+Each FID score in our paper is computed using images over 5K. For sanity check, 
+we suggest directly comparing with the FID score of the images from baseline Stable Diffusion in the same setup. 
+Please refer to Section 4.1 Quantitative Metrics in the main paper and Section D in the supplementary materials for more details.
 
 ## Acknowledgements
 - Models

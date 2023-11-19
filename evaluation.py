@@ -14,6 +14,7 @@ try:
     BICUBIC = InterpolationMode.BICUBIC
 except ImportError:
     BICUBIC = Image.BICUBIC
+from cleanfid import fid
 
 def parse_args():
     desc = "Evaluation"
@@ -96,10 +97,10 @@ if __name__ == '__main__':
 
     CLASSES_prompts = args.class_list
     length = len(CLASSES_prompts)
-    device = "cuda:{}".format(args.device) if torch.cuda.is_available() else "cpu"
+    device_ = "cuda:{}".format(args.device) if torch.cuda.is_available() else "cpu"
 
     # evaluate
-    num_each_cls_list = eval(args.img_folder, CLASSES_prompts, device)
+    num_each_cls_list = eval(args.img_folder, CLASSES_prompts, device_)
 
     # get the ratio
     each_cls_ratio = num_each_cls_list/np.sum(num_each_cls_list)
@@ -112,3 +113,6 @@ if __name__ == '__main__':
     assert round(KL1, 4) == round(KL2, 4)
 
     print("For Class {}, KL Divergence is {:4f}".format(CLASSES_prompts, KL1))
+
+    score = fid.compute_fid(args.img_folder, dataset_name="FFHQ", dataset_res=1024, dataset_split="trainval70k")
+    print("FID Score is {}".format(score))
