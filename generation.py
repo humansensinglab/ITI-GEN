@@ -239,7 +239,7 @@ def main():
     parser.add_argument(
         '--gpu', 
         type=int, 
-        default=5, 
+        default=0,
         help='gpu number'
     )
     parser.add_argument(
