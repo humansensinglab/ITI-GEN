@@ -298,7 +298,7 @@ def main():
         if opt.fixed_code:
             start_code = torch.randn([opt.n_samples, opt.C, opt.H // opt.f, opt.W // opt.f], device=device)
 
-        data = [batch_size * emb[index].unsqueeze(0)]
+        data = [emb[index].unsqueeze(0).repeat(batch_size, 1, 1)]
 
         with torch.no_grad():
             with precision_scope("cuda"):
